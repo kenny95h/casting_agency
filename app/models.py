@@ -9,10 +9,9 @@ database_path = "sqlite:///{}".format(os.path.join(project_dir, database_filenam
 
 db = SQLAlchemy()
 
-def setup_db(app):
+def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    db.app = app
     db.init_app(app)
 
 
@@ -26,13 +25,27 @@ def db_drop_and_create_all():
     )
 
     movie.insert()
+
+    movie = Movie(
+        title='Elf',
+        release_date='2009-08-21'
+    )
+
+    movie.insert()
     
     actor = Actor(
         name='Kirsten Bell',
         age=32,
         gender='F'
     )
+    
+    actor.insert()
 
+    actor = Actor(
+        name='Bruce Wills',
+        age=63,
+        gender='M'
+    )
     
     actor.insert()
 
