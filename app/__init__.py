@@ -234,11 +234,11 @@ def create_app(test_config=None):
         return jsonify({
             "success": False,
             "error": 422,
-            "message": "unprocessable"
+            "message": "Request contains invalid data"
         }), 422
 
     @app.errorhandler(404)
-    def notfound(error):
+    def not_found(error):
         return jsonify({
             "success": False,
             "error": 404,
@@ -246,7 +246,7 @@ def create_app(test_config=None):
         }), 404
 
     @app.errorhandler(403)
-    def nopermission(error):
+    def no_permission(error):
         return jsonify({
             "success": False,
             "error": 403,
@@ -254,7 +254,7 @@ def create_app(test_config=None):
         }), 403
 
     @app.errorhandler(401)
-    def notauthenticated(error):
+    def not_authenticated(error):
         return jsonify({
             "success": False,
             "error": 401,
@@ -270,10 +270,20 @@ def create_app(test_config=None):
                 "message": "Bad request"
             }),
         400)
+
+    @app.errorhandler(500)
+    def server_error(error):
+        return (
+            jsonify({
+                "success": False, 
+                "error": 500, 
+                "message": "Server error"
+            }),
+        500)
     
     return app
     
-app = create_app()
 
 if __name__ == '__main__':
+    app = create_app()
     app.run()
