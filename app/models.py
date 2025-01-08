@@ -18,7 +18,7 @@ def setup_db(app, database_path=database_path):
 def db_drop_and_create_all():
     db.drop_all()
     db.create_all()
-    # add one demo row which is helping in POSTMAN test
+
     movie = Movie(
         title='Avatar',
         release_date='2024-12-11'
